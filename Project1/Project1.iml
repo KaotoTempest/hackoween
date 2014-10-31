@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="blpapi-3.8.5.1" level="project" />
+    <orderEntry type="library" name="twilio-java-sdk-3.4.6-jar-with-dependencies" level="project" />
   </component>
 </module>
 

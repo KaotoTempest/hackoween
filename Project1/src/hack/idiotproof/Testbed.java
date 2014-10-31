@@ -1,7 +1,5 @@
 package hack.idiotproof;
 
-import com.sun.rmi.rmid.ExecPermission;
-
 import java.awt.*;
 
 /**
@@ -18,7 +16,8 @@ public class Testbed {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args)
+    {
 
     }
 }
