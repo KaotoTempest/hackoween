@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="blpapi-3.8.5.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Project1/lib/blpapi-3.8.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
