@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +22,8 @@ import java.util.List;
  * Created by Liam on 01/11/2014.
  */
 public class TextMessage implements Runnable  {
-    public static final String ACCOUNT_SID = "AC27668090d13ae2272dae65523783e067";
-    public static final String AUTH_TOKEN = "abf7cccad59c70d66d2351baf81fc478";
+    public static final String ACCOUNT_SID = "ACcf384aa58fd8bc648d4588122ba4188c";
+    public static final String AUTH_TOKEN = "7d2612d242154add2764ba69b6549ba8";
     private static List<String> processedList = new ArrayList<String>();
 
     public void sendAlertMessage(String phoneNumber, String textContent) throws TwilioRestException {
@@ -32,7 +33,7 @@ public class TextMessage implements Runnable  {
         System.out.println("phoneNo:" + phoneNumber + " " + "-" + textContent);
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("To", phoneNumber));
-        params.add(new BasicNameValuePair("From", "+441133202261"));
+        params.add(new BasicNameValuePair("From", "+441484598166"));
         params.add(new BasicNameValuePair("Body", textContent));
 
         MessageFactory messageFactory = client.getAccount().getMessageFactory();
@@ -47,6 +48,7 @@ public class TextMessage implements Runnable  {
         MessageList messages = client.getAccount().getMessages();
 
         for (Message message : messages) {
+            System.out.println("000000000000000000000000000000000" + message.getStatus());
             if (!message.getFrom().equals("+441133202261")) {
                 System.out.println(message.getFrom());
                 String currentMessage = message.getBody();
@@ -63,8 +65,8 @@ public class TextMessage implements Runnable  {
                 // String result = history.getHistory(splitString[0]+" "+splitString[1]+" "+splitString[2], splitString[3],) todo drago's bloomburg function
 
                 System.out.println("bing");
-                if(splitString.length > 3)
-                this.sendAlertMessage(message.getFrom(),  singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
+               // if(splitString.length > 3)
+                this.sendAlertMessage(message.getFrom(),  "MOLOZ");
 
 
             }

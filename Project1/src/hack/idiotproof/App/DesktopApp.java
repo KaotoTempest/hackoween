@@ -275,7 +275,7 @@ public class DesktopApp extends JPanel {
         tree.add(b2);
         tree.add(b3);
 
-        DesktopApp app = new DesktopApp();
+        final DesktopApp app = new DesktopApp();
         app.setLayout(null);
         FHRITPTreeNode node = new FHRITPTreeNode();
         node.setUserObject("Portfolio");
@@ -288,8 +288,25 @@ public class DesktopApp extends JPanel {
         node.add(new FHRITPTreeNode("TOSH"));
         app.setCurrentElement(node);
 
-        JFrame frame = new JFrame();
+        final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent e) {
+                if ((e.getNewState() & Frame.MAXIMIZED_BOTH) != 0) {
+                    System.out.println("Window Maximized");
+                    int width = e.getWindow().getWidth();
+                    int height = e.getWindow().getHeight();
+
+                    for (Component component : frame.getContentPane().getComponents()) {
+                        component.setBounds(width /2, height /2, 200,200);
+                    }
+
+                    frame.repaint();
+
+                }
+            }
+        });
 
 //        app.addComponentListener(new ComponentListener() {
 //            @Override
