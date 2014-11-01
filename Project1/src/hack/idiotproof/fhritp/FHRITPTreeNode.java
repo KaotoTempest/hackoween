@@ -8,5 +8,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class FHRITPTreeNode extends DefaultMutableTreeNode {
 
+    private long uid;
 
+    public FHRITPTreeNode() {
+        // Empty
+    }
+
+    public FHRITPTreeNode(String value) {
+        super(value);
+    }
 }

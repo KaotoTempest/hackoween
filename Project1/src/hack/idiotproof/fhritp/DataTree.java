@@ -9,21 +9,21 @@ import java.util.*;
  */
 public class DataTree {
 
-    private DefaultMutableTreeNode root;
+    private FHRITPTreeNode root;
 
     public DataTree() {
-        root = new DefaultMutableTreeNode();
+        root = new FHRITPTreeNode();
     }
 
     public void add(List<String> values) {
         List<String> list = new LinkedList<>(values);
         add(list, root);
     }
-    private void add(List<String> values, DefaultMutableTreeNode root) {
+    private void add(List<String> values, FHRITPTreeNode root) {
         if (values.size() != 0) {
-            DefaultMutableTreeNode child = getChild(root, values.get(0));
+            FHRITPTreeNode child = getChild(root, values.get(0));
             if (child == null) {
-                DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(values.get(0));
+                FHRITPTreeNode newNode = new FHRITPTreeNode(values.get(0));
                 root.add(newNode);
                 values.remove(0);
                 add(values, newNode);
@@ -38,9 +38,9 @@ public class DataTree {
         return get(values, root);
     }
 
-    private String get(List<String> values, DefaultMutableTreeNode root) {
+    private String get(List<String> values, FHRITPTreeNode root) {
         if (values.size() != 0) {
-            DefaultMutableTreeNode child = getChild(root, values.get(0));
+            FHRITPTreeNode child = getChild(root, values.get(0));
             if (child == null) {
                 return null;
             } else {
@@ -52,11 +52,11 @@ public class DataTree {
         return null;
     }
 
-    private DefaultMutableTreeNode getChild(DefaultMutableTreeNode root, String value) {
+    private FHRITPTreeNode getChild(FHRITPTreeNode root, String value) {
        int childCount = root.getChildCount();
        for (int i=0; i<childCount; i++) {
-           if (value.equalsIgnoreCase((String)((DefaultMutableTreeNode) root.getChildAt(i)).getUserObject())) {
-               return (DefaultMutableTreeNode) root.getChildAt(i);
+           if (value.equals((String)((FHRITPTreeNode) root.getChildAt(i)).getUserObject())) {
+               return (FHRITPTreeNode) root.getChildAt(i);
            }
        }
        return null;
