@@ -21,17 +21,16 @@ public class DataTree {
         add(list, root);
     }
 
-    private void add(List<String> values, FHRITPTreeNode root) {
-        if (values.size() != 0) {
-            FHRITPTreeNode child = getChild(root, values.get(0));
+    private void add(List<String> values, FHRITPTreeNode node) {
+        if (!values.isEmpty()) {
+            FHRITPTreeNode child = getChild(node, values.get(0));
             if (child == null) {
                 FHRITPTreeNode newNode = new FHRITPTreeNode(values.get(0));
                 newNode.setUID(uid++);
-                root.add(newNode);
+                node.add(newNode);
                 values.remove(0);
                 add(values, newNode);
-            } else if (values.get(0).contains("=")) {
-                child.setUserObject(values.get(0));
+
             } else {
                 values.remove(0);
                 add(values, child);
@@ -40,51 +39,36 @@ public class DataTree {
     }
 
     public String get(List<String> values) {
-        values.add("");
-        return get(values, root).split("=")[1];
+        List<String> list = new LinkedList<>(values);
+        list.add("");
+        String value = getRec(list, root);
+        return value.split("=")[1];
     }
 
-    private String get(List<String> values, FHRITPTreeNode root) {
+    private String getRec(List<String> values, FHRITPTreeNode node) {
         if (!values.isEmpty()) {
-            FHRITPTreeNode child = getChild(root, values.get(0));
-            if (child == null && ((String) root.getUserObject()).contains("=")) {
-                return ((String) root.getUserObject());
+            FHRITPTreeNode child = getChild(node, values.get(0));
+            if (child == null && ((String) node.getUserObject()).contains("=")) {
+                return ((String) node.getUserObject());
             } else if (child == null) {
                 return null;
             } else {
                 values.remove(0);
-                return get(values, child);
-
+                return getRec(values, child);
             }
+        } else {
+            return null;
         }
-        return null;
     }
 
     private FHRITPTreeNode getChild(FHRITPTreeNode root, String value) {
         int childCount = root.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            if (value.equals((String) ((FHRITPTreeNode) root.getChildAt(i)).getUserObject())) {
+            if (((String)((FHRITPTreeNode) root.getChildAt(i)).getUserObject()).contains(value)) {
                 return (FHRITPTreeNode) root.getChildAt(i);
             }
         }
         return null;
     }
 
-//    public List<String> getHistory(String company, String fieldName) {
-//        try {
-//            return historyMap.get(company).get(fieldName);
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-//
-//    public String getLastValue(String company, String fieldName) {
-//        try {
-//            List<String> list = getHistory(company, fieldName);
-//            return list.get(list.size() - 1);
-//        } catch (Exception e) {
-//            return null;
-//        }
-//
-//    }
 }

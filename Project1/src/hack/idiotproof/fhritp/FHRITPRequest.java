@@ -14,10 +14,7 @@ import java.util.List;
 public class FHRITPRequest {
 
     public static final String SPACE = " ";
-    private DataTree dataTree;
-
     public FHRITPRequest() {
-        dataTree = new DataTree();
     }
 
     public void sendRequest(String dataRequest, String company, String region, String area, String element, List<String> fields) throws Exception {
@@ -26,8 +23,8 @@ public class FHRITPRequest {
         Service refDataSvc = session.getService("//blp/refdata");
 
         Request request = constructRequest(refDataSvc, dataRequest, company, region, area, element, fields);
-
         session.sendRequest(request, new CorrelationID(1));
+
         boolean continueToLoop = true;
         while (continueToLoop) {
             Event event = session.nextEvent();
@@ -108,20 +105,17 @@ public class FHRITPRequest {
                             securityData.getElement("fieldData");
 
                     ElementIterator elementIterator = fieldData.elementIterator();
+
                     while (elementIterator.hasNext()) {
                         Element element = elementIterator.next();
                         list.add(element.name().toString() + " = " + element.getValueAsString());
-                        dataTree.add(list);
-
-                        String value = dataTree.get(list);
-                        System.out.println("PULAAAAAAAAAAAAAAAAAAAA" + value);
-
-                        list.remove(list.size() - 1);
+                        FHRITP.dataTree.add(list);
+                        int lastItem = list.size() - 1;
+                        list.remove(lastItem);
                     }
                 }
             }
         }
-        System.out.println(dataTree);
     }
 
     private static void handleOtherEvent(Event event) throws Exception {

@@ -74,8 +74,8 @@ public class SingleResponse {
                 } else {
                     Element fieldData =
                             securityData.getElement("fieldData");
-                    double px_last = fieldData.getElementAsFloat64(
-                            "PX_LAST");
+                    String px_last = fieldData.getElementAsString(
+                            field);
 
                     // Individually output each value
 
