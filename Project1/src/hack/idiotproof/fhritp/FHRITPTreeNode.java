@@ -17,4 +17,8 @@ public class FHRITPTreeNode extends DefaultMutableTreeNode {
     public FHRITPTreeNode(String value) {
         super(value);
     }
+
+    public void setUID(long UID) {
+        this.uid = UID;
+    }
 }

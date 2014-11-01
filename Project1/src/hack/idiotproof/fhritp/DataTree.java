@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class DataTree {
 
+    private long uid = 0;
     private FHRITPTreeNode root;
 
     public DataTree() {
@@ -24,6 +25,7 @@ public class DataTree {
             FHRITPTreeNode child = getChild(root, values.get(0));
             if (child == null) {
                 FHRITPTreeNode newNode = new FHRITPTreeNode(values.get(0));
+                newNode.setUID(uid++);
                 root.add(newNode);
                 values.remove(0);
                 add(values, newNode);
