@@ -76,6 +76,10 @@ public class DServer implements Runnable {
         Thread thread = new Thread(this);
         thread.start();
         running = true;
+    }
+
+    public void startWithTest(){
+        start();
 
         InetAddress address = null;
         try {
@@ -85,8 +89,6 @@ public class DServer implements Runnable {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static void testDatagramSocket(InetAddress address) {
@@ -95,8 +97,7 @@ public class DServer implements Runnable {
 
         try {
             bytes = request.toByteArray();
-            DatagramPacket packet = null;
-            packet = new DatagramPacket(bytes, bytes.length, address, 8000);
+            DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, 8000);
             try {
                 DatagramSocket socket = new DatagramSocket();
                 socket.send(packet);
