@@ -44,7 +44,7 @@ public class History {
                 return null;
             } else {
                 values.remove(0);
-                return get(values, child);
+                return get(values, child).split("=")[1];
             }
         }
 
