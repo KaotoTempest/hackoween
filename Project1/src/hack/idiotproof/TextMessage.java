@@ -29,6 +29,7 @@ public class TextMessage implements Runnable  {
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
 
         // Build the parameters
+        System.out.println("phoneNo:" + phoneNumber + " " + "-" + textContent);
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("To", phoneNumber));
         params.add(new BasicNameValuePair("From", "+441133202261"));
@@ -41,39 +42,39 @@ public class TextMessage implements Runnable  {
 
     public void checkMessages(Date currentTime) throws Exception {
 
-        TextMessage textMessage = new TextMessage();
+
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
         MessageList messages = client.getAccount().getMessages();
 
         for (Message message : messages) {
-
-            if (!message.getFrom().equals("+441133202261") &&  message.getDateCreated().compareTo(currentTime)>= 0) {
-
+            if (!message.getFrom().equals("+441133202261")) {
+                System.out.println(message.getFrom());
                 String currentMessage = message.getBody();
                 String[] splitString = StringUtils.split(currentMessage);
                 List<String> resultStrings = new ArrayList<String>();
 
                 for (String s : splitString) {
+                    System.out.println(s);
                     resultStrings.add(s);
                 }
-                SingleResponse singleResponse=   new SingleResponse();
+                SingleResponse singleResponse = new SingleResponse();
 
 
                 // String result = history.getHistory(splitString[0]+" "+splitString[1]+" "+splitString[2], splitString[3],) todo drago's bloomburg function
 
+                System.out.println("bing");
+                if(splitString.length > 3)
+                this.sendAlertMessage(message.getFrom(),  singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
 
-                        System.out.println("bing");
-                        if(splitString.length > 3)
-                        textMessage.sendAlertMessage(message.getFrom(),  singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
 
-
-                    }
-                }
             }
+        }
+    }
 
 
     public static void main(String args[]){
 
+        System.out.println("Muie");
         TextMessage message = new TextMessage();
         Thread thisThread = new Thread(message);
         thisThread.start();
@@ -81,12 +82,11 @@ public class TextMessage implements Runnable  {
 
     @Override
     public void run() {
-        TextMessage textMessage = new TextMessage();
         while(true) {
             try {
                 Date currentTime = new Date(System.currentTimeMillis());
                 Thread.sleep(50);
-                textMessage.checkMessages(currentTime);
+                this.checkMessages(currentTime);
 
             } catch (Exception e) {
                 e.printStackTrace();

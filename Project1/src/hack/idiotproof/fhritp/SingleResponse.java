@@ -6,10 +6,12 @@ import com.bloomberglp.blpapi.*;
  * Created by Liam on 01/11/2014.
  */
 public class SingleResponse {
-    public String fetch(String company, String area,String ylabel,String field ) throws Exception {
+
+    public String fetch(String company, String area, String ylabel, String field ) throws Exception {
         SessionOptions sessionOptions = new SessionOptions();
         sessionOptions.setServerHost("10.8.8.1");
         sessionOptions.setServerPort(8194);
+
         Session session = new Session(sessionOptions);
         if (!session.start()) {
             System.out.println("Could not start session.");
