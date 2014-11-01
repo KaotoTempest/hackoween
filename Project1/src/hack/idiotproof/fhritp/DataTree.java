@@ -13,7 +13,7 @@ public class DataTree {
     private FHRITPTreeNode root;
 
     public DataTree() {
-        root = new FHRITPTreeNode("");
+        root = new FHRITPTreeNode("Portfolio");
     }
 
     public void add(List<String> values) {
@@ -71,4 +71,7 @@ public class DataTree {
         return null;
     }
 
+    public FHRITPTreeNode getRoot() {
+        return root;
+    }
 }
