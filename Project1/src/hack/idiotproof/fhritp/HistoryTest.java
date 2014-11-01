@@ -2,13 +2,9 @@ package hack.idiotproof.fhritp;
 
 import org.junit.Test;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class HistoryTest {
 
@@ -27,7 +23,7 @@ public class HistoryTest {
 
         List<String> list3 = new LinkedList<>();
         Collections.addAll(list3, testList3);
-        History history = new History();
+        DataTree history = new DataTree();
         history.add(list);
         history.add(list2);
         history.add(list3);

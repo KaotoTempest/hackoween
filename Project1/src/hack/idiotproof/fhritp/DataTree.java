@@ -7,11 +7,11 @@ import java.util.*;
  * StudentHack
  * Created by dragosmc on 11/1/2014.
  */
-public class History {
+public class DataTree {
 
     private DefaultMutableTreeNode root;
 
-    public History() {
+    public DataTree() {
         root = new DefaultMutableTreeNode();
     }
 

@@ -1,5 +1,6 @@
 package hack.idiotproof.fhritp;
 
+import javax.xml.crypto.Data;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import java.util.List;
  * Created by dragosmc on 11/1/2014.
  */
 public class FHRITP {
+
+    public static DataTree dataTree = new DataTree();
 
     public static void main(String[] args) {
         String dataRequest = "ReferenceDataRequest";

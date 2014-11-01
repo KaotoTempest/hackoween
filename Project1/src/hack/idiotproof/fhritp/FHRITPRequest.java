@@ -14,10 +14,9 @@ import java.util.List;
 public class FHRITPRequest {
 
     public static final String SPACE = " ";
-    private History history;
 
     public FHRITPRequest() {
-        history = new History();
+
     }
 
     public void sendRequest(String dataRequest, String company, String region, String area, String element, List<String> fields) throws Exception {
@@ -111,13 +110,13 @@ public class FHRITPRequest {
                     while (elementIterator.hasNext()) {
                         Element element = elementIterator.next();
                         list.add(element.name().toString() + " = " + element.getValueAsString());
-                        history.add(list);
+                        FHRITP.dataTree.add(list);
                         list.remove(list.size() - 1);
                     }
                 }
             }
         }
-        System.out.println(history);
+        System.out.println(FHRITP.dataTree);
     }
 
     private static void handleOtherEvent(Event event) throws Exception {
