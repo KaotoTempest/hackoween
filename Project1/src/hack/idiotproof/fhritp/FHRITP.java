@@ -99,24 +99,27 @@ public class FHRITP {
                 if (securityData.hasElement("securityError")) {
                     Element securityError = securityData.getElement("securityError");
                     System.out.println("* security =" + security);
-                    //Element securityError = securityData.getElement( "securityError");
                     securityError.print(System.out);
                     return;
                 } else {
+                    // Build the string list
+                    List<String> list = new LinkedList<>();
+                    Collections.addAll(list, security.split(" "));
+
                     Element fieldData =
                             securityData.getElement("fieldData");
 
                     ElementIterator elementIterator = fieldData.elementIterator();
                     while (elementIterator.hasNext()) {
                         Element element = elementIterator.next();
-                       // history.add(security, element.name().toString(), element.getValueAsString());
-                        //System.out.println( element.name().toString() + ": : :" + element.getValueAsString());
-
+                        list.add(element.name().toString() + " = " + element.getValueAsString());
+                        history.add(list);
+                        list.remove(list.size()-1);
                     }
                 }
             }
         }
-        System.out.println(history.getLastValue("IBM US Index", "PX_LAST"));
+        System.out.println(history);
     }
 
     private static void handleOtherEvent(Event event) throws Exception {

@@ -28,14 +28,8 @@ public class HistoryTest {
         List<String> list3 = new LinkedList<>();
         Collections.addAll(list3, testList3);
         History history = new History();
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
-        history.add(list, root);
-        history.add(list2, root);
-        history.add(list3, root);
-
-        Enumeration breadthFirstEnumeration = root.breadthFirstEnumeration();
-        while(breadthFirstEnumeration.hasMoreElements()) {
-            System.out.println(breadthFirstEnumeration.nextElement());
-        }
+        history.add(list);
+        history.add(list2);
+        history.add(list3);
     }
 }

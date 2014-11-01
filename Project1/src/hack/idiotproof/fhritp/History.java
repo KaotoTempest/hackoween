@@ -1,10 +1,7 @@
 package hack.idiotproof.fhritp;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * StudentHack
@@ -18,7 +15,11 @@ public class History {
         root = new DefaultMutableTreeNode();
     }
 
-    public void add(List<String> values, DefaultMutableTreeNode root) {
+    public void add(List<String> values) {
+        List<String> list = new LinkedList<>(values);
+        add(list, root);
+    }
+    private void add(List<String> values, DefaultMutableTreeNode root) {
         if (values.size() != 0) {
             DefaultMutableTreeNode child = getChild(root, values.get(0));
             if (child == null) {
