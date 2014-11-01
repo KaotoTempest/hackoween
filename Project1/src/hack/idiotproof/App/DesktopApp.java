@@ -18,29 +18,24 @@ import java.util.List;
  * Created by Adam Bedford on 01/11/2014.
  */
 public class DesktopApp extends JPanel {
-    private DataTree history;
     private FHRITPTreeNode currentElement;
 
-    public DesktopApp(LayoutManager layoutManager, boolean b, DataTree history) {
+    public DesktopApp(LayoutManager layoutManager, boolean b) {
         super(layoutManager, b);
-        this.history = history;
         this.setBackground(Color.black);
     }
 
-    public DesktopApp(LayoutManager layoutManager, DataTree history) {
+    public DesktopApp(LayoutManager layoutManager) {
         super(layoutManager);
-        this.history = history;
         this.setBackground(Color.black);
     }
 
-    public DesktopApp(boolean b, DataTree history) {
+    public DesktopApp(boolean b) {
         super(b);
-        this.history = history;
         this.setBackground(Color.black);
     }
 
-    public DesktopApp(DataTree history) {
-        this.history = history;
+    public DesktopApp() {
         this.setBackground(Color.black);
     }
 
@@ -280,7 +275,7 @@ public class DesktopApp extends JPanel {
         tree.add(b2);
         tree.add(b3);
 
-        DesktopApp app = new DesktopApp(tree);
+        DesktopApp app = new DesktopApp();
         app.setLayout(null);
         FHRITPTreeNode node = new FHRITPTreeNode();
         node.setUserObject("Portfolio");
