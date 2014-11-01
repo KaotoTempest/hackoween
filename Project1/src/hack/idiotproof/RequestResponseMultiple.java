@@ -34,6 +34,8 @@ public class RequestResponseMultiple {
         request.getElement("fields").appendValue("VWAP_VOLUME");
         // Volume used to calculate the Volume Weighted Average Price (VWAP)
                 session.sendRequest(request, new CorrelationID(1));
+
+
         boolean continueToLoop = true;
         while (continueToLoop) {
             Event event = session.nextEvent();
