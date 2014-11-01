@@ -7,6 +7,7 @@
       <root url="jar://$USER_HOME$/Downloads/blpapi_java_3.8.5.1/blpapi_java_3.8.5.1/bin/blpapi-3.8.5.1.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/blpapi_java_3.8.5.1/blpapi_java_3.8.5.1/bin/blpapi-examples-3.8.5.1.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/blpapi_java_3.8.5.1/blpapi_java_3.8.5.1/bin/ContributionsMktdataExample-3.8.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project1/lib/blpapi-3.8.5.1.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Downloads/blpapi_java_3.8.5.1/blpapi_java_3.8.5.1/bin/ContributionsMktdataExample-3.8.5.1.jar!/" />

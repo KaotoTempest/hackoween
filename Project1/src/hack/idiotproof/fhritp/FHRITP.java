@@ -1,5 +1,7 @@
 package hack.idiotproof.fhritp;
 
+import hack.idiotproof.TextMessage;
+
 import javax.xml.crypto.Data;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +28,10 @@ public class FHRITP {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        TextMessage textMessage =  new TextMessage();
+        textMessage.checkMessages(dataTree);
+
     }
 
 

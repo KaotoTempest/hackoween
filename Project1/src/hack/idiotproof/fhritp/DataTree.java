@@ -51,17 +51,17 @@ public class DataTree {
             }
         }
 
-        return null;
+        return "banana";
     }
 
     private FHRITPTreeNode getChild(FHRITPTreeNode root, String value) {
        int childCount = root.getChildCount();
        for (int i=0; i<childCount; i++) {
-           if (value.equals((String)((FHRITPTreeNode) root.getChildAt(i)).getUserObject())) {
+           if (value.equals((String) ((FHRITPTreeNode) root.getChildAt(i)).getUserObject())) {
                return (FHRITPTreeNode) root.getChildAt(i);
            }
        }
-       return null;
+       return new FHRITPTreeNode("");
     }
 
 //    public List<String> getHistory(String company, String fieldName) {

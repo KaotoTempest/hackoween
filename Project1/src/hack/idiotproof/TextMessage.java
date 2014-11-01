@@ -5,6 +5,9 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
 import com.twilio.sdk.resource.list.MessageList;
+import hack.idiotproof.fhritp.DataTree;
+import hack.idiotproof.fhritp.FHRITPRequest;
+import hack.idiotproof.fhritp.DataTree;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -34,7 +37,7 @@ public class TextMessage {
 
     }
 
-    public void checkMessages(){
+    public void checkMessages(DataTree dataTree) {
         TextMessage textMessage = new TextMessage();
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
         MessageList messages = client.getAccount().getMessages();
@@ -43,17 +46,39 @@ public class TextMessage {
             if (!message.getFrom().equals("+441133202261") && !processedList.contains(message.getSid())) {
                 String currentMessage = message.getBody();
                 String[] splitString = StringUtils.split(currentMessage);
-                if (splitString.length == 4) {
-                    // String result = history.getHistory(splitString[0]+" "+splitString[1]+" "+splitString[2], splitString[3],) todo drago's bloomburg function
+                List<String> resultStrings = new ArrayList<String>();
 
-                    //textMessage.sendAlertMessage(message.getFrom(),"You've provided a valid field good job!");
-                    processedList.add(message.getSid());
-
+                for (String s : splitString) {
+                    resultStrings.add(s);
                 }
+
+                // String result = history.getHistory(splitString[0]+" "+splitString[1]+" "+splitString[2], splitString[3],) todo drago's bloomburg function
+                String resultMessage;
+                if (dataTree.get(resultStrings) == null) {
+                    List<String> values = new ArrayList<String>();
+                    for (int i = 3; i < splitString.length; i++) {
+                        values.add(splitString[i]);
+                    }
+                    FHRITPRequest request = new FHRITPRequest();
+                    try {
+                        request.sendRequest("ReferenceDataRequest", splitString[0], splitString[1], splitString[2], "securities", values);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                resultMessage = dataTree.get(resultStrings);
+                try {
+                    sendAlertMessage(message.getFrom(), resultMessage);
+                } catch (TwilioRestException e) {
+                    e.printStackTrace();
+                }
+                //textMessage.sendAlertMessage(message.getFrom(),"You've provided a valid field good job!");
+                processedList.add(message.getSid());
+
             }
         }
-
     }
+
 
     public static void main(String args[]) throws TwilioRestException {
 
