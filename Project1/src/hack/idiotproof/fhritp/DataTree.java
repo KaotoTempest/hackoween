@@ -13,13 +13,14 @@ public class DataTree {
     private FHRITPTreeNode root;
 
     public DataTree() {
-        root = new FHRITPTreeNode();
+        root = new FHRITPTreeNode("");
     }
 
     public void add(List<String> values) {
         List<String> list = new LinkedList<>(values);
         add(list, root);
     }
+
     private void add(List<String> values, FHRITPTreeNode root) {
         if (values.size() != 0) {
             FHRITPTreeNode child = getChild(root, values.get(0));
@@ -29,6 +30,8 @@ public class DataTree {
                 root.add(newNode);
                 values.remove(0);
                 add(values, newNode);
+            } else if (values.get(0).contains("=")) {
+                child.setUserObject(values.get(0));
             } else {
                 values.remove(0);
                 add(values, child);
@@ -37,31 +40,34 @@ public class DataTree {
     }
 
     public String get(List<String> values) {
-        return get(values, root);
+        values.add("");
+        return get(values, root).split("=")[1];
     }
 
     private String get(List<String> values, FHRITPTreeNode root) {
-        if (values.size() != 0) {
+        if (!values.isEmpty()) {
             FHRITPTreeNode child = getChild(root, values.get(0));
-            if (child == null) {
+            if (child == null && ((String) root.getUserObject()).contains("=")) {
+                return ((String) root.getUserObject());
+            } else if (child == null) {
                 return null;
             } else {
                 values.remove(0);
-                return get(values, child).split("=")[1];
+                return get(values, child);
+
             }
         }
-
-        return "banana";
+        return null;
     }
 
     private FHRITPTreeNode getChild(FHRITPTreeNode root, String value) {
-       int childCount = root.getChildCount();
-       for (int i=0; i<childCount; i++) {
-           if (value.equals((String) ((FHRITPTreeNode) root.getChildAt(i)).getUserObject())) {
-               return (FHRITPTreeNode) root.getChildAt(i);
-           }
-       }
-       return new FHRITPTreeNode("");
+        int childCount = root.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            if (value.equals((String) ((FHRITPTreeNode) root.getChildAt(i)).getUserObject())) {
+                return (FHRITPTreeNode) root.getChildAt(i);
+            }
+        }
+        return null;
     }
 
 //    public List<String> getHistory(String company, String fieldName) {

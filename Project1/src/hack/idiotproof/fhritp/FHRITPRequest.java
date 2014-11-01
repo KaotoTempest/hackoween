@@ -14,9 +14,10 @@ import java.util.List;
 public class FHRITPRequest {
 
     public static final String SPACE = " ";
+    private DataTree dataTree;
 
     public FHRITPRequest() {
-
+        dataTree = new DataTree();
     }
 
     public void sendRequest(String dataRequest, String company, String region, String area, String element, List<String> fields) throws Exception {
@@ -110,13 +111,17 @@ public class FHRITPRequest {
                     while (elementIterator.hasNext()) {
                         Element element = elementIterator.next();
                         list.add(element.name().toString() + " = " + element.getValueAsString());
-                        FHRITP.dataTree.add(list);
+                        dataTree.add(list);
+
+                        String value = dataTree.get(list);
+                        System.out.println("PULAAAAAAAAAAAAAAAAAAAA" + value);
+
                         list.remove(list.size() - 1);
                     }
                 }
             }
         }
-        System.out.println(FHRITP.dataTree);
+        System.out.println(dataTree);
     }
 
     private static void handleOtherEvent(Event event) throws Exception {

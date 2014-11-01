@@ -14,7 +14,7 @@ public class FHRITP {
 
     public static DataTree dataTree = new DataTree();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String dataRequest = "ReferenceDataRequest";
         String element = "securities";
         String company = "IBM";
@@ -30,7 +30,7 @@ public class FHRITP {
         }
 
         TextMessage textMessage =  new TextMessage();
-        textMessage.checkMessages(dataTree);
+        textMessage.checkMessages();
 
     }
 

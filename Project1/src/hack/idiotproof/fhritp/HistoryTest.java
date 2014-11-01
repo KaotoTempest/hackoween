@@ -8,9 +8,9 @@ import java.util.List;
 
 public class HistoryTest {
 
-    private String[] testList = new String[]{"IBM", "US", "Index", "Equity", "PX_LAST"};
-    private String[] testList2 = new String[]{"IBM", "UK", "Index", "Equity", "PX_LAST"};
-    private String[] testList3 = new String[]{"IBM", "UK", "Index", "Equity", "DESC"};
+    private String[] testList = new String[]{"IBM", "US", "Index", "Equity", "PX_LAST", "20"};
+    private String[] testList2 = new String[]{"IBM", "UK", "Index", "Equity", "PX_LAST", "1"};
+    private String[] testList3 = new String[]{"IBM", "UK", "Index", "Equity", "DESC", "12"};
 
 
     @Test
@@ -27,5 +27,8 @@ public class HistoryTest {
         history.add(list);
         history.add(list2);
         history.add(list3);
+
+        String value = history.get(list);
+        System.out.println("MOLOOOOOOOOOOOOOZ " + value);
     }
 }

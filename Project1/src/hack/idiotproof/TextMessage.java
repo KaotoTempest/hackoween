@@ -47,7 +47,7 @@ public class TextMessage {
 
         for (Message message : messages) {
             System.out.println(message.getDateSent() + "   " + new Date( System.currentTimeMillis()-600));
-            if (!message.getFrom().equals("+441133202261") &&  message.getDateCreated().compareTo( new Date(System.currentTimeMillis()-1000))>= 0) {
+            if (!message.getFrom().equals("+441133202261") &&  message.getDateCreated().compareTo( new Date(System.currentTimeMillis()-100000))>= 0) {
 
                 String currentMessage = message.getBody();
                 String[] splitString = StringUtils.split(currentMessage);
