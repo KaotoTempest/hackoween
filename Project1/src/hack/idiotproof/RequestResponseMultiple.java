@@ -28,8 +28,7 @@ public class RequestResponseMultiple {
         Request request = refDataSvc.createRequest("ReferenceDataRequest");
         request.getElement("securities").appendValue("AAPL US Equity");
         request.getElement("securities").appendValue("IBM US Equity");
-        request.getElement("securities").appendValue(
-                "BLAHBLAHBLAH US Equity");
+        request.getElement("securities").appendValue("MSFT US Equity");
         request.getElement("fields").appendValue("PX_LAST"); // Last Price
         request.getElement("fields").appendValue("DS002"); // Description
         request.getElement("fields").appendValue("VWAP_VOLUME");

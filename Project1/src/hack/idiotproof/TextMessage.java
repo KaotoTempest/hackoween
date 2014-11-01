@@ -32,10 +32,10 @@ public class TextMessage {
 
     }
 
-   public static void main(String args[]) throws TwilioRestException {
+    public static void main(String args[]) throws TwilioRestException {
 
-       TextMessage message =  new TextMessage();
-       message.sendUpdate("07718091247", "test2");
-   }
+        TextMessage message = new TextMessage();
+        message.sendUpdate("07563240071", "#FHRITP");
+    }
 
 }
