@@ -109,7 +109,7 @@ public class FHRITP {
                     ElementIterator elementIterator = fieldData.elementIterator();
                     while (elementIterator.hasNext()) {
                         Element element = elementIterator.next();
-                        history.add(security, element.name().toString(), element.getValueAsString());
+                       // history.add(security, element.name().toString(), element.getValueAsString());
                         //System.out.println( element.name().toString() + ": : :" + element.getValueAsString());
 
                     }
