@@ -33,6 +33,24 @@ public class History {
         }
     }
 
+    public String get(List<String> values) {
+        return get(values, root);
+    }
+
+    private String get(List<String> values, DefaultMutableTreeNode root) {
+        if (values.size() != 0) {
+            DefaultMutableTreeNode child = getChild(root, values.get(0));
+            if (child == null) {
+                return null;
+            } else {
+                values.remove(0);
+                return get(values, child);
+            }
+        }
+
+        return null;
+    }
+
     private DefaultMutableTreeNode getChild(DefaultMutableTreeNode root, String value) {
        int childCount = root.getChildCount();
        for (int i=0; i<childCount; i++) {
