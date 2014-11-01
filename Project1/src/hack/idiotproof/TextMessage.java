@@ -63,9 +63,9 @@ public class TextMessage implements Runnable  {
 
 
                         System.out.println("bing");
-                        if(splitString.length > 3) {
-                            textMessage.sendAlertMessage(message.getFrom(), singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
-                        }
+                        if(splitString.length > 3)
+                        textMessage.sendAlertMessage(message.getFrom(),  singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
+
 
                     }
                 }
@@ -85,7 +85,7 @@ public class TextMessage implements Runnable  {
         while(true) {
             try {
                 Date currentTime = new Date(System.currentTimeMillis());
-                Thread.sleep(1000);
+                Thread.sleep(50);
                 textMessage.checkMessages(currentTime);
 
             } catch (Exception e) {
