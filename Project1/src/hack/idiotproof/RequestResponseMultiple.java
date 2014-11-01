@@ -11,13 +11,13 @@ import com.bloomberglp.blpapi.SessionOptions;
 public class RequestResponseMultiple {
 
     public static void main(String[] args) throws Exception {
-        SessionOptions sessionOptions = new SessionOptions();
-        sessionOptions.setServerHost("10.8.8.1");
-        sessionOptions.setServerPort(8194);
-        Session session = new Session(sessionOptions);
-        if (!session.start()) {
-            System.out.println("Could not start session.");
-            System.exit(1);
+            SessionOptions sessionOptions = new SessionOptions();
+            sessionOptions.setServerHost("10.8.8.1");
+            sessionOptions.setServerPort(8194);
+            Session session = new Session(sessionOptions);
+            if (!session.start()) {
+                System.out.println("Could not start session.");
+                System.exit(1);
         }
         if (!session.openService("//blp/refdata")) {
             System.out.println("Could not open service " +

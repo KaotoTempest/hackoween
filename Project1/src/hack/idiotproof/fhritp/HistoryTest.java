@@ -25,6 +25,7 @@ public class HistoryTest {
         Collections.addAll(list3, testList3);
         DataTree history = new DataTree();
         history.add(list);
+        System.out.println(history.get(list));
         history.add(list2);
         history.add(list3);
 

@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by Liam on 01/11/2014.
  */
-public class TextMessage {
+public class TextMessage implements Runnable  {
     public static final String ACCOUNT_SID = "AC27668090d13ae2272dae65523783e067";
     public static final String AUTH_TOKEN = "abf7cccad59c70d66d2351baf81fc478";
     private static List<String> processedList = new ArrayList<String>();
@@ -39,15 +39,15 @@ public class TextMessage {
 
     }
 
-    public void checkMessages() throws Exception {
+    public void checkMessages(Date currentTime) throws Exception {
 
         TextMessage textMessage = new TextMessage();
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
         MessageList messages = client.getAccount().getMessages();
 
         for (Message message : messages) {
-            System.out.println(message.getDateSent() + "   " + new Date( System.currentTimeMillis()-600));
-            if (!message.getFrom().equals("+441133202261") &&  message.getDateCreated().compareTo( new Date(System.currentTimeMillis()-100000))>= 0) {
+
+            if (!message.getFrom().equals("+441133202261") &&  message.getDateCreated().compareTo(currentTime)>= 0) {
 
                 String currentMessage = message.getBody();
                 String[] splitString = StringUtils.split(currentMessage);
@@ -57,22 +57,15 @@ public class TextMessage {
                     resultStrings.add(s);
                 }
                 SingleResponse singleResponse=   new SingleResponse();
-                try {
-                    if(splitString.length > 3) {
 
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
                 // String result = history.getHistory(splitString[0]+" "+splitString[1]+" "+splitString[2], splitString[3],) todo drago's bloomburg function
 
 
                         System.out.println("bing");
-                        if(splitString.length > 3)
-                        textMessage.sendAlertMessage(message.getFrom(),  singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
-
+                        if(splitString.length > 3) {
+                            textMessage.sendAlertMessage(message.getFrom(), singleResponse.fetch(splitString[0], splitString[1], splitString[2], splitString[3]));
+                        }
 
                     }
                 }
@@ -80,17 +73,27 @@ public class TextMessage {
 
 
     public static void main(String args[]){
-        TextMessage textMessage = new TextMessage();
-       while(true) {
-           try {
-               textMessage.checkMessages();
 
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-       }
+        TextMessage message = new TextMessage();
+        Thread thisThread = new Thread(message);
+        thisThread.start();
     }
+
+    @Override
+    public void run() {
+        TextMessage textMessage = new TextMessage();
+        while(true) {
+            try {
+                Date currentTime = new Date(System.currentTimeMillis());
+                Thread.sleep(1000);
+                textMessage.checkMessages(currentTime);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+    }
+}
 
 
 
