@@ -1,7 +1,7 @@
 package hack.idiotproof.fhritp;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * StudentHack
