@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * StudentHack
+ * Created by dragosmc on 11/1/2014.
+ */
 public class FHRITPRequest {
 
     public static final String SPACE = " ";

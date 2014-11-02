@@ -1,14 +1,12 @@
 package hack.idiotproof.fhritp;
 
-import hack.idiotproof.App.DesktopApp;
+import hack.idiotproof.app.DesktopApp;
 import hack.idiotproof.TextMessage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * StudentHack
@@ -20,12 +18,39 @@ public class FHRITP {
 
     public static void main(String[] args) throws Exception {
 
-        // Create dummy bubbles
+        initializeDemoData();
+
+        // Create texting app
+        TextMessage message = new TextMessage();
+        Thread thread = new Thread(message);
+        thread.start();
+
+        // Create Bloomberg visualizer
+        DesktopApp desktopApp = new DesktopApp();
+        desktopApp.setLayout(null);
+        FHRITPTreeNode root = dataTree.getRoot();
+        desktopApp.setCurrentElement(root);
+        ObserverJFrame frame = new ObserverJFrame();
+
+        dataTree.addObserver(frame);
+        dataTree.addObserver(desktopApp);
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.add(desktopApp);
+        frame.setVisible(true);
+        Insets insets = frame.getInsets();
+        frame.setSize(400 + insets.left + insets.right, 400 + insets.top + insets.bottom);
+
+    }
+
+    private static void initializeDemoData() {
+        // Create some starter data
+        // It may take a while
         String dataRequest = "ReferenceDataRequest";
         String element = "securities";
-        String company = "IBM";
-        String region = "US";
-        String area = "Equity";
+        String[] companies = new String[]{"IBM", "C", "MSFT", "APPL", "ADM"};
+        String[] region = new String[]{"US", "LN", "CN", "UA"};
+        String[] area = new String[]{"Index", "Equity"};
         List<String> fields = new LinkedList<>();
         fields.add("DS002");
         fields.add("PX_LAST");
@@ -33,28 +58,15 @@ public class FHRITP {
 
         FHRITPRequest request = new FHRITPRequest();
         try {
-            request.sendRequest(dataRequest, company, region, area, element, fields);
+            for (String company : companies) {
+                for (String s : area) {
+                    for (String r : region) {
+                        request.sendRequest(dataRequest, company, r, s, element, fields);
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Create texting app
-        TextMessage message = new TextMessage();
-        Thread thisThread = new Thread(message);
-        thisThread.start();
-
-        DesktopApp desktopApp = new DesktopApp();
-        dataTree.addObserver(desktopApp);
-        desktopApp.setLayout(null);
-        FHRITPTreeNode root = dataTree.getRoot();
-        desktopApp.setCurrentElement(root);
-        ObserverJFrame frame = new ObserverJFrame();
-        dataTree.addObserver(frame);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(desktopApp);
-        frame.setVisible(true);
-        Insets insets = frame.getInsets();
-        frame.setSize(400 + insets.left + insets.right, 400 + insets.top + insets.bottom);
-
     }
 }

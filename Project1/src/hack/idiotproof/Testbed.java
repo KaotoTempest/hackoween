@@ -1,8 +1,8 @@
 package hack.idiotproof;
 
 import com.bloomberglp.blpapi.Event;
-import hack.idiotproof.Server.DServer;
-import hack.idiotproof.Server.Server;
+import hack.idiotproof.server.DServer;
+import hack.idiotproof.server.Server;
 
 import java.io.IOException;
 

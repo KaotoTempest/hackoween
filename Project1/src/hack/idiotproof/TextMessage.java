@@ -48,8 +48,6 @@ public class TextMessage implements Runnable {
     }
 
     public void checkMessages() throws Exception {
-
-
         MessageList messages = getMessages();
 
         for (Message message : messages) {
@@ -66,8 +64,6 @@ public class TextMessage implements Runnable {
                     this.sendAlertMessage(message.getFrom(), "Your requested data ."
                             + resultStrings.get(resultStrings.size() - 1) + ". is " + result);
                 }
-
-
             }
         }
     }

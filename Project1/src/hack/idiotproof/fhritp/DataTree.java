@@ -1,7 +1,5 @@
 package hack.idiotproof.fhritp;
 
-
-
 import java.util.*;
 
 /**
@@ -10,7 +8,6 @@ import java.util.*;
  */
 public class DataTree extends Observable {
 
-    private boolean nodesHaveBeenAdded = false;
     private long uid = 0;
     private FHRITPTreeNode root;
     private FHRITPRequest fhritpRequest;
