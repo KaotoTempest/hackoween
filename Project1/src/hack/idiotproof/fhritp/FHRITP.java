@@ -21,6 +21,7 @@ public class FHRITP {
         initializeDemoData();
 
         // Create texting app
+        // Message example: IBM US EQUITY PX_LAST to +441484598166
         TextMessage message = new TextMessage();
         Thread thread = new Thread(message);
         thread.start();
