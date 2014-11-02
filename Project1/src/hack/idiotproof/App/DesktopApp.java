@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Adam Bedford on 01/11/2014.
  */
-public class DesktopApp extends JPanel {
+public class DesktopApp extends JPanel implements Observer{
     private FHRITPTreeNode currentElement;
 
     public DesktopApp(LayoutManager layoutManager, boolean b) {
@@ -37,6 +37,11 @@ public class DesktopApp extends JPanel {
 
     public DesktopApp() {
         this.setBackground(Color.black);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.repaint();
     }
 
     public static class AnimationState {
@@ -110,7 +115,7 @@ public class DesktopApp extends JPanel {
                     e.printStackTrace();
                 }
 
-                t += .025;
+                t += .05;
             }
             _final.doFinal();
         }

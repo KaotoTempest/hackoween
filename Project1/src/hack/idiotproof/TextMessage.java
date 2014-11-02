@@ -77,15 +77,6 @@ public class TextMessage implements Runnable {
         return client.getAccount().getMessages();
     }
 
-
-//    public static void main(String args[]) {
-//
-//        System.out.println("Muie");
-//        TextMessage message = new TextMessage();
-//        Thread thisThread = new Thread(message);
-//        thisThread.start();
-//    }
-
     @Override
     public void run() {
         while (true) {

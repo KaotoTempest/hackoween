@@ -89,7 +89,6 @@ public class FHRITPRequest {
                 String security = securityData.getElementAsString("security");
                 if (securityData.hasElement("securityError")) {
                     Element securityError = securityData.getElement("securityError");
-                    System.out.println("* security =" + security);
                     securityError.print(System.out);
                     return;
                 } else {
@@ -118,8 +117,6 @@ public class FHRITPRequest {
         MessageIterator iter = event.messageIterator();
         while (iter.hasNext()) {
             Message message = iter.next();
-            System.out.println("correlationID=" +
-                    message.correlationID());
             message.print(System.out);
             if (Event.EventType.Constants.SESSION_STATUS ==
                     event.eventType().intValue()

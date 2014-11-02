@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * StudentHack
@@ -42,10 +44,12 @@ public class FHRITP {
         thisThread.start();
 
         DesktopApp desktopApp = new DesktopApp();
+        dataTree.addObserver(desktopApp);
         desktopApp.setLayout(null);
         FHRITPTreeNode root = dataTree.getRoot();
         desktopApp.setCurrentElement(root);
-        JFrame frame = new JFrame();
+        ObserverJFrame frame = new ObserverJFrame();
+        dataTree.addObserver(frame);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(desktopApp);
         frame.setVisible(true);
@@ -53,6 +57,4 @@ public class FHRITP {
         frame.setSize(400 + insets.left + insets.right, 400 + insets.top + insets.bottom);
 
     }
-
-
 }

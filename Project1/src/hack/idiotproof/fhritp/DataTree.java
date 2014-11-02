@@ -1,16 +1,16 @@
 package hack.idiotproof.fhritp;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+
+
+import java.util.*;
 
 /**
  * StudentHack
  * Created by dragosmc on 11/1/2014.
  */
-public class DataTree {
+public class DataTree extends Observable {
 
+    private boolean nodesHaveBeenAdded = false;
     private long uid = 0;
     private FHRITPTreeNode root;
     private FHRITPRequest fhritpRequest;
@@ -23,6 +23,7 @@ public class DataTree {
     public synchronized void add(List<String> values) {
         List<String> list = new LinkedList<>(values);
         add(list, root);
+
     }
 
     private synchronized void add(List<String> values, FHRITPTreeNode node) {
@@ -88,7 +89,8 @@ public class DataTree {
             fhritpRequest.sendRequest("ReferenceDataRequest", values.get(0), values.get(1), values.get(2),
                     "securities", Collections.singletonList(values.get(3)));
         }
-
+        setChanged();
+        notifyObservers();
         return get(values);
     }
 }
