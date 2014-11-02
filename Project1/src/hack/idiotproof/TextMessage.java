@@ -6,22 +6,21 @@ import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
 import com.twilio.sdk.resource.list.MessageList;
 import hack.idiotproof.fhritp.FHRITP;
-import hack.idiotproof.fhritp.SingleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by Liam on 01/11/2014.
+ *
  */
 public class TextMessage implements Runnable {
     public static final String ACCOUNT_SID = "ACcf384aa58fd8bc648d4588122ba4188c";
     public static final String AUTH_TOKEN = "7d2612d242154add2764ba69b6549ba8";
-    private static List<String> processedList = new ArrayList<String>();
 
     private List<String> messageSIDList;
 
@@ -31,8 +30,6 @@ public class TextMessage implements Runnable {
         for (Message message : messages) {
             messageSIDList.add(message.getSid());
         }
-
-
     }
 
     public void sendAlertMessage(String phoneNumber, String textContent) throws TwilioRestException {
@@ -40,7 +37,7 @@ public class TextMessage implements Runnable {
 
         // Build the parameters
         System.out.println("phoneNo:" + phoneNumber + " " + "-" + textContent);
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("To", phoneNumber));
         params.add(new BasicNameValuePair("From", "+441484598166"));
         params.add(new BasicNameValuePair("Body", textContent));
@@ -61,15 +58,14 @@ public class TextMessage implements Runnable {
                 messageSIDList.add(message.getSid());
                 String currentMessage = message.getBody();
                 String[] splitString = StringUtils.split(currentMessage);
-                List<String> resultStrings = new ArrayList<String>();
+                List<String> resultStrings = new ArrayList<>();
+                Collections.addAll(resultStrings, splitString);
 
-                for (String s : splitString) {
-                    resultStrings.add(s);
+                String result = FHRITP.dataTree.getAndUpdate(resultStrings);
+                if (result != null) {
+                    this.sendAlertMessage(message.getFrom(), "Your requested data ."
+                            + resultStrings.get(resultStrings.size() - 1) + ". is " + result);
                 }
-                FHRITP.dataTree.get()
-
-                // if(splitString.length > 3)
-                this.sendAlertMessage(message.getFrom(), "MOLOZ");
 
 
             }

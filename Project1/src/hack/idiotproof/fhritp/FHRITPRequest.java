@@ -7,13 +7,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * StudentHack
- * Created by dragosmc on 11/1/2014.
- */
 public class FHRITPRequest {
 
     public static final String SPACE = " ";
+
     public FHRITPRequest() {
     }
 
@@ -44,8 +41,7 @@ public class FHRITPRequest {
     // value would be in the format SYMBOLOGY [EXCHANGE] <Key>
     // E.g: IBM US Equity
     // List of keys at page 78
-    //todo: list of fields
-    private static Request constructRequest(Service refDataSvc, String dataRequest, String company, String region, String area, String element, List<String> fields) {
+    private Request constructRequest(Service refDataSvc, String dataRequest, String company, String region, String area, String element, List<String> fields) {
         Request request = refDataSvc.createRequest(dataRequest);
 
         request.getElement(element).appendValue(company + SPACE + region + SPACE + area);
@@ -57,7 +53,7 @@ public class FHRITPRequest {
         return request;
     }
 
-    private static Session getSession() throws IOException, InterruptedException {
+    private Session getSession() throws IOException, InterruptedException {
         SessionOptions sessionOptions = new SessionOptions();
         sessionOptions.setServerHost("10.8.8.1");
         sessionOptions.setServerPort(8194);
@@ -118,20 +114,16 @@ public class FHRITPRequest {
         }
     }
 
-    private static void handleOtherEvent(Event event) throws Exception {
-        System.out.println("EventType=" + event.eventType());
+    private void handleOtherEvent(Event event) throws Exception {
         MessageIterator iter = event.messageIterator();
         while (iter.hasNext()) {
             Message message = iter.next();
             System.out.println("correlationID=" +
                     message.correlationID());
-            System.out.println("messageType=" + message.messageType());
             message.print(System.out);
             if (Event.EventType.Constants.SESSION_STATUS ==
                     event.eventType().intValue()
                     && "SessionTerminated".equals(message.messageType().toString())) {
-                System.out.println("Terminating: " +
-                        message.messageType());
                 System.exit(1);
             }
         }

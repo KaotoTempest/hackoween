@@ -1,5 +1,7 @@
 package hack.idiotproof.fhritp;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,17 +13,19 @@ public class DataTree {
 
     private long uid = 0;
     private FHRITPTreeNode root;
+    private FHRITPRequest fhritpRequest;
 
     public DataTree() {
+        fhritpRequest = new FHRITPRequest();
         root = new FHRITPTreeNode("Portfolio");
     }
 
-    public void add(List<String> values) {
+    public synchronized void add(List<String> values) {
         List<String> list = new LinkedList<>(values);
         add(list, root);
     }
 
-    private void add(List<String> values, FHRITPTreeNode node) {
+    private synchronized void add(List<String> values, FHRITPTreeNode node) {
         if (!values.isEmpty()) {
             FHRITPTreeNode child = getChild(node, values.get(0));
             if (child == null) {
@@ -39,10 +43,14 @@ public class DataTree {
     }
 
     public String get(List<String> values) {
-        List<String> list = new LinkedList<>(values);
-        list.add("");
-        String value = getRec(list, root);
-        return value.split("=")[1];
+        try {
+            List<String> list = new LinkedList<>(values);
+            list.add("");
+            String value = getRec(list, root);
+            return value.split("=")[1];
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private String getRec(List<String> values, FHRITPTreeNode node) {
@@ -64,7 +72,7 @@ public class DataTree {
     private FHRITPTreeNode getChild(FHRITPTreeNode root, String value) {
         int childCount = root.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            if (((String)((FHRITPTreeNode) root.getChildAt(i)).getUserObject()).contains(value)) {
+            if (((String) ((FHRITPTreeNode) root.getChildAt(i)).getUserObject()).contains(value)) {
                 return (FHRITPTreeNode) root.getChildAt(i);
             }
         }
@@ -73,5 +81,14 @@ public class DataTree {
 
     public FHRITPTreeNode getRoot() {
         return root;
+    }
+
+    public String getAndUpdate(List<String> values) throws Exception {
+        if (get(values) == null) {
+            fhritpRequest.sendRequest("ReferenceDataRequest", values.get(0), values.get(1), values.get(2),
+                    "securities", Collections.singletonList(values.get(3)));
+        }
+
+        return get(values);
     }
 }
